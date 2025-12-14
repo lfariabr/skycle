@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, PerspectiveCamera } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { Suspense } from 'react';
 import PlaceholderModel from './PlaceholderModel';
 
@@ -14,13 +14,13 @@ export default function ModelViewer({ version }: ModelViewerProps) {
     <div className="w-full h-[500px] bg-gray-100 dark:bg-gray-900 rounded-lg overflow-hidden">
       <Canvas shadows>
         <PerspectiveCamera makeDefault position={[5, 3, 5]} />
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={0.7} />
         <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
         <spotLight position={[-10, 10, -5]} intensity={0.3} />
+        <hemisphereLight args={['#ffffff', '#606060', 0.6]} />
         
         <Suspense fallback={null}>
           <PlaceholderModel version={version} />
-          <Environment preset="sunset" />
         </Suspense>
         
         <OrbitControls 
