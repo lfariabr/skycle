@@ -11,7 +11,7 @@ interface ModelViewerProps {
 
 export default function ModelViewer({ version }: ModelViewerProps) {
   return (
-    <div className="w-full h-[500px] bg-gray-100 dark:bg-gray-900 rounded-lg overflow-hidden">
+    <div className="w-full h-[300px] sm:h-[400px] lg:h-[500px] bg-gray-100 dark:bg-gray-900 rounded-lg overflow-hidden touch-none">
       <Canvas shadows>
         <PerspectiveCamera makeDefault position={[5, 3, 5]} />
         <ambientLight intensity={0.7} />

@@ -37,15 +37,19 @@ export default function UpvoteButton({ version, initialVotes = 0 }: UpvoteButton
     <button
       onClick={handleUpvote}
       disabled={hasVoted || isLoading}
-      className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${
+      className={`group relative flex items-center gap-2 rounded-xl px-5 py-2.5 font-medium shadow-sm transition-all duration-200 ${
         hasVoted
-          ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 cursor-not-allowed'
-          : 'bg-blue-500 hover:bg-blue-600 text-white active:scale-95'
+          ? 'cursor-not-allowed bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:ring-emerald-800'
+          : isLoading
+            ? 'cursor-wait bg-slate-400 text-white'
+            : 'bg-emerald-500 text-white shadow-emerald-500/25 hover:bg-emerald-600 hover:shadow-md hover:shadow-emerald-500/30 active:scale-95 active:shadow-sm'
       }`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5"
+        className={`h-4 w-4 flex-shrink-0 transition-transform duration-200 ${
+          hasVoted ? 'scale-110' : 'group-hover:scale-110 group-hover:-translate-y-0.5'
+        }`}
         viewBox="0 0 20 20"
         fill="currentColor"
       >
@@ -55,8 +59,21 @@ export default function UpvoteButton({ version, initialVotes = 0 }: UpvoteButton
           clipRule="evenodd"
         />
       </svg>
-      <span>{hasVoted ? 'Voted' : 'Upvote'}</span>
-      <span className="ml-1 font-bold">{votes}</span>
+      <span className="text-sm font-semibold">{isLoading ? 'Voting...' : hasVoted ? 'Voted' : 'Upvote'}</span>
+      <span className="ml-0.5 rounded-full bg-white/20 px-2 py-0.5 text-sm font-bold">{votes}</span>
+      {hasVoted && (
+        <svg
+          className="ml-1 h-4 w-4 flex-shrink-0 animate-bounce"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fillRule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clipRule="evenodd"
+          />
+        </svg>
+      )}
     </button>
   );
 }

@@ -14,24 +14,35 @@ const versions = [
 export default function VersionSwitcher({ currentVersion, onVersionChange }: VersionSwitcherProps) {
   return (
     <div className="w-full">
-      <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
-        Prototype Versions
+      <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+        Select Version
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="mt-3 flex flex-col gap-2">
         {versions.map((version) => (
           <button
             key={version.id}
             onClick={() => onVersionChange(version.id)}
-            className={`p-4 rounded-lg border-2 transition-all text-left ${
+            className={`group relative overflow-hidden rounded-xl p-3 text-left transition-all duration-200 ${
               currentVersion === version.id
-                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30'
-                : 'border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-600'
+                ? 'bg-gradient-to-br from-emerald-50 to-cyan-50 ring-2 ring-emerald-400 dark:from-emerald-900/20 dark:to-cyan-900/20 dark:ring-emerald-500'
+                : 'bg-slate-50 ring-1 ring-slate-200 hover:bg-white hover:shadow-sm hover:ring-slate-300 dark:bg-gray-800 dark:ring-gray-700 dark:hover:bg-gray-750 dark:hover:ring-gray-600'
             }`}
           >
-            <div className="font-semibold text-gray-900 dark:text-white">
+            {currentVersion === version.id && (
+              <div className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white shadow-sm">
+                <svg className="h-3 w-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            )}
+            <div className="text-sm font-semibold text-gray-900 dark:text-white">
               {version.name}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            <div className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
               {version.description}
             </div>
           </button>
